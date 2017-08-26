@@ -19,13 +19,18 @@
 
 #pragma -set/get
 
-- (void)setObject:(id)anObject forKey:(NSString *)aKey;
+- (void)setObject:(NSString *)anObject forKey:(NSString *)aKey;
 - (NSString *)objectForKey:(NSString *)aKey;
 - (void)removeObjectForKey:(NSString *)aKey;
 
 @end
 
 @interface QFAsyncDataCenter (asyncData)
+
+- (void)setClass:(NSString *)classKey object:(NSString *)anObject key:(NSString *)aKey;
+- (NSString *)objectForClass:(NSString *)classKey key:(NSString *)aKey;
+- (void)removeClass:(NSString *)classKey key:(NSString *)aKey;
+- (void)removeObjectForClass:(NSString *)classKey;
 
 - (NSString *)showVCObjectForKey:(NSString *)aKey;
 - (void)popVC:(UIViewController *)vc;

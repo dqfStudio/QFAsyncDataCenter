@@ -54,36 +54,24 @@
     return NSStringFromClass([objc class]);
 }
 
-#pragma -set/get
-
-- (void)setObject:(id)anObject {
-    [self.mutableDict setObject:anObject forKey:KSingleKey];
-}
-
-- (NSString *)object {
-    return [self.mutableDict objectForKey:KSingleKey];
-}
-
-- (void)removeObject {
-    if ([self.mutableDict.allKeys containsObject:KSingleKey]) {
-        [self.mutableDict removeObjectForKey:KSingleKey];
-    }
-}
-
 @end
 
 @implementation QFSingleDataCenter (singleData)
 
-- (NSString *)showVCObject {
-    return [self objectForClass:[self showVC] key:KSingleKey];
+- (void)setClass:(NSString *)classKey object:(NSString *)anObject {
+    [self.mutableDict setObject:anObject forKey:classKey.append(KSingleKey)];
+}
+
+- (NSString *)objectForClass:(NSString *)classKey {
+    return [self.mutableDict objectForKey:classKey.append(KSingleKey)];
 }
 
 - (NSString *)objectForClass:(NSString *)classKey key:(NSString *)aKey {
     return [self.mutableDict objectForKey:classKey.append(aKey)];
 }
 
-- (void)popVC:(UIViewController *)vc {
-    [self removeObjectForClass:NSStringFromClass([vc class])];
+- (void)removeClass:(NSString *)classKey key:(NSString *)aKey {
+    [self.mutableDict removeObjectForKey:classKey.append(aKey)];
 }
 
 - (void)removeObjectForClass:(NSString *)classKey {
@@ -93,6 +81,15 @@
             [self.mutableDict removeObjectForKey:aKey];
         }
     }
+}
+
+
+- (NSString *)showVCObject {
+    return [self objectForClass:[self showVC] key:KSingleKey];
+}
+
+- (void)popVC:(UIViewController *)vc {
+    [self removeObjectForClass:NSStringFromClass([vc class])];
 }
 
 @end

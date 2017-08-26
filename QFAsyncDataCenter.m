@@ -56,7 +56,7 @@
 
 #pragma -set/get
 
-- (void)setObject:(id)anObject forKey:(NSString *)aKey {
+- (void)setObject:(NSString *)anObject forKey:(NSString *)aKey {
     [self.mutableDict setObject:anObject forKey:aKey];
 }
 
@@ -74,16 +74,16 @@
 
 @implementation QFAsyncDataCenter (asyncData)
 
-- (NSString *)showVCObjectForKey:(NSString *)aKey {
-    return [self objectForClass:[self showVC] key:aKey];
+- (void)setClass:(NSString *)classKey object:(NSString *)anObject key:(NSString *)aKey {
+    [self.mutableDict setObject:anObject forKey:classKey.append(aKey)];
 }
 
 - (NSString *)objectForClass:(NSString *)classKey key:(NSString *)aKey {
     return [self.mutableDict objectForKey:classKey.append(aKey)];
 }
 
-- (void)popVC:(UIViewController *)vc {
-    [self removeObjectForClass:NSStringFromClass([vc class])];
+- (void)removeClass:(NSString *)classKey key:(NSString *)aKey {
+    [self.mutableDict removeObjectForKey:classKey.append(aKey)];
 }
 
 - (void)removeObjectForClass:(NSString *)classKey {
@@ -93,6 +93,15 @@
             [self.mutableDict removeObjectForKey:aKey];
         }
     }
+}
+
+
+- (NSString *)showVCObjectForKey:(NSString *)aKey {
+    return [self objectForClass:[self showVC] key:aKey];
+}
+
+- (void)popVC:(UIViewController *)vc {
+    [self removeObjectForClass:NSStringFromClass([vc class])];
 }
 
 @end

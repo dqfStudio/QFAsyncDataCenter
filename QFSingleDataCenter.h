@@ -19,15 +19,14 @@
 - (UINavigationController *)rootVC;
 - (NSString *)showVC;
 
-#pragma -set/get
-
-- (void)setObject:(id)anObject;
-- (NSString *)object;
-- (void)removeObject;
-
 @end
 
 @interface QFSingleDataCenter (singleData)
+
+- (void)setClass:(NSString *)classKey object:(NSString *)anObject;
+- (NSString *)objectForClass:(NSString *)classKey;
+- (void)removeClass:(NSString *)classKey key:(NSString *)aKey;
+- (void)removeObjectForClass:(NSString *)classKey;
 
 - (NSString *)showVCObject;
 - (void)popVC:(UIViewController *)vc;
